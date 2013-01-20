@@ -10,12 +10,12 @@ $(document).ready(function()
 {
 
     var html ='';
-    html +='<div style="width:825px; border-radius:0px 0px 5px 5px; background-color:black; padding:5px; overflow:hidden;">';
+    html +='<div style="margin-bottom: 10px;width:510px; border-radius:0px 0px 5px 5px; background-color:black; padding:5px; overflow:hidden;">';
     html +='<input type="button" value="Delete Selected Tweets" id="func_del_tweets" style="float:right; border:1px solid #990000; background-color:#990000; background-image: -moz-linear-gradient(#E60000, #990000); color:white; margin-left:5px;" />';
     html +='<input type="button" value="Select All Tweets" id="func_select_all_tweets" style="float:right; margin-left:5px; background-color:#DDD; background-image: -moz-linear-gradient(#FFFFFF, #DDDDDD);" />';
     html +='</div>';
 
-    $('.profile-card').append(html);
+    $('.content-header').append(html);
 
     $('#func_select_all_tweets').click(function(){
         $('input.ch_del_tweets').attr('checked','checked');
