@@ -2,7 +2,7 @@
 // @name        Twitter bulk delete
 // @namespace   twitter
 // @include     https://twitter.com/*
-// @version     1
+// @version     2
 // @require  http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js
 // ==/UserScript==
 
@@ -12,10 +12,17 @@ $(document).ready(function()
     var html ='';
     html +='<div style="margin-bottom: 10px;width:510px; border-radius:0px 0px 5px 5px; background-color:black; padding:5px; overflow:hidden;">';
     html +='<input type="button" value="Delete Selected Tweets" id="func_del_tweets" style="float:right; border:1px solid #990000; background-color:#990000; background-image: -moz-linear-gradient(#E60000, #990000); color:white; margin-left:5px;" />';
+    html +='<input type="button" value="Deselect Retweets" id="func_deselect_retweets" style="float:right; border:1px solid #405D2D; margin-left:5px; background-color:#6B9B4A; color:#9DFF6A; background-image: -moz-linear-gradient(#6B9B4A, #405D2D);" />';
     html +='<input type="button" value="Select All Tweets" id="func_select_all_tweets" style="float:right; margin-left:5px; background-color:#DDD; background-image: -moz-linear-gradient(#FFFFFF, #DDDDDD);" />';
     html +='</div>';
 
     $('.content-header').append(html);
+
+    $('#func_deselect_retweets').click(function(){
+        $('.dogear:visible').each(function(){
+            $(this).parent().parent().find('.ch_del_tweets').attr('checked','');
+        });
+    });
 
     $('#func_select_all_tweets').click(function(){
         $('input.ch_del_tweets').attr('checked','checked');
