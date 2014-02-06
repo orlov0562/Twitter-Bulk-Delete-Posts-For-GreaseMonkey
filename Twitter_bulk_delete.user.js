@@ -2,13 +2,45 @@
 // @name        Twitter Bulk Delete
 // @namespace   Twitter
 // @include     https://twitter.com/*
-// @version     3
+// @version     3.1
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js
 // @grant       none
 // ==/UserScript==
  
 $(document).ready(function()
 {
+
+    var language = window.navigator.userLanguage || window.navigator.language;
+
+
+    var tbd_translations = {
+        'defaults': {
+            select_all_weets: "Select All Tweets",            
+            deselect_retweets: "Deselect Retweets",
+            delete_selected_tweets: "Delete Selected Tweets",
+            delete_selected_tweets_q:"Delete selected tweets?",
+            delete_this_tweet: "delete this ↓ tweet"
+        },
+        'ru-ru': {
+            select_all_weets: "Выбрать все твиты",            
+            deselect_retweets: "Исключить ретвиты",
+            delete_selected_tweets: "Удалить выбранные твиты",
+            delete_selected_tweets_q:"Точно удалить выбранные твиты?",
+            delete_this_tweet: "удалить этот ↓ твит"
+        },
+        'ru': {
+            select_all_weets: "Выбрать все твиты",            
+            deselect_retweets: "Исключить ретвиты",
+            delete_selected_tweets: "Удалить выбранные твиты",
+            delete_selected_tweets_q:"Точно удалить выбранные твиты?",
+            delete_this_tweet: "удалить этот ↓ твит"
+        }        
+    };
+
+    var tbd_l = tbd_translations[language.toLowerCase()]
+              ? tbd_translations[language.toLowerCase()] 
+              : tbd_translations.defaults;
+
     setInterval(function(){
 
         $('.js-stream-item').each(function() {
@@ -23,7 +55,7 @@ $(document).ready(function()
                 html += '<input type="checkbox" tweet_id="'+tweet_id+'" tweet_type="'+tweet_type+'" class="ch_del_tweets"/> ';
                 html += '</div>';
                 html += '<div style="float:left; margin-top:2px; margin-left:5px;">';
-                html += 'delete this ↓ tweet';
+                html += tbd_l.delete_this_tweet;
                 html += '</div>';
                 html += '</div>';
                 $(this).prepend(html);
@@ -35,9 +67,9 @@ $(document).ready(function()
         {
                 var html ='';
                 html +='<div id="tbd-manage-panel" style="background-color:white; border-radius:6px; margin-bottom:10px;padding:5px; overflow:hidden;">';
-                html +='<input type="button" value="Delete Selected Tweets" id="func_del_tweets" style="float:right; border:1px solid #990000; background-color:#990000; background-image: -moz-linear-gradient(#E60000, #990000); color:white; margin-left:5px;" />';
-                html +='<input type="button" value="Deselect Retweets" id="func_deselect_retweets" style="float:right; border:1px solid #405D2D; margin-left:5px; background-color:#6B9B4A; color:#9DFF6A; background-image: -moz-linear-gradient(#6B9B4A, #405D2D);" />';   
-                html +='<input type="button" value="Select All Tweets" id="func_select_all_tweets" style="float:right; margin-left:5px; background-color:#DDD; background-image: -moz-linear-gradient(#FFFFFF, #DDDDDD);" />';
+                html +='<input type="button" value="'+tbd_l.delete_selected_tweets+'" id="func_del_tweets" style="float:right; border:1px solid #990000; background-color:#990000; background-image: -moz-linear-gradient(#E60000, #990000); color:white; margin-left:5px;" />';
+                html +='<input type="button" value="'+tbd_l.deselect_retweets+'" id="func_deselect_retweets" style="float:right; border:1px solid #405D2D; margin-left:5px; background-color:#6B9B4A; color:#9DFF6A; background-image: -moz-linear-gradient(#6B9B4A, #405D2D);" />';   
+                html +='<input type="button" value="'+tbd_l.select_all_weets+'" id="func_select_all_tweets" style="float:right; margin-left:5px; background-color:#DDD; background-image: -moz-linear-gradient(#FFFFFF, #DDDDDD);" />';
                 html +='</div>';
              
                 $(html).insertBefore('#timeline .content-header');
@@ -65,7 +97,7 @@ $(document).ready(function()
         if (click_event_obj.length>0 && (!click_event_obj.data('events') || !click_event_obj.data('events').click))
         {
                 click_event_obj.click(function(){
-                    if (!confirm('Delete selected tweets?')) return false;
+                    if (!confirm(tbd_l.delete_selected_tweets_q)) return false;
              
                     var tweet_authenticity_token = $('input.authenticity_token').val();
              
@@ -101,3 +133,4 @@ $(document).ready(function()
     }, 250);
  
 });
+
