@@ -44,7 +44,9 @@ $(document).ready(function()
     setInterval(function(){
 
         $('.js-stream-item').each(function() {
- 
+             
+             if ($(this).find('.ProfileCard').length) return;
+                 
             if (!$(this).find('.ch_del_tweets').length)
             {
                 var tweet_id = $(this).find('.js-stream-tweet').attr('data-tweet-id');
@@ -66,13 +68,13 @@ $(document).ready(function()
         if ( ! $('#tbd-manage-panel').is(':visible') )
         {
                 var html ='';
-                html +='<div id="tbd-manage-panel" style="background-color:white; border-radius:6px; margin-bottom:10px;padding:5px; overflow:hidden;">';
+                html +='<div id="tbd-manage-panel" style="background-color:white; border: 1px solid #E1E8ED; border-radius:6px; margin:10px 0;padding:5px; overflow:hidden;">';
                 html +='<input type="button" value="'+tbd_l.delete_selected_tweets+'" id="func_del_tweets" style="float:right; border:1px solid #990000; background-color:#990000; background-image: -moz-linear-gradient(#E60000, #990000); color:white; margin-left:5px;" />';
                 html +='<input type="button" value="'+tbd_l.deselect_retweets+'" id="func_deselect_retweets" style="float:right; border:1px solid #405D2D; margin-left:5px; background-color:#6B9B4A; color:#9DFF6A; background-image: -moz-linear-gradient(#6B9B4A, #405D2D);" />';   
                 html +='<input type="button" value="'+tbd_l.select_all_weets+'" id="func_select_all_tweets" style="float:right; margin-left:5px; background-color:#DDD; background-image: -moz-linear-gradient(#FFFFFF, #DDDDDD);" />';
                 html +='</div>';
              
-                $(html).insertBefore('#timeline .content-header');
+                $(html).insertBefore('.ProfileHeading');
         }
         
         var click_event_obj = $('#func_select_all_tweets');
@@ -133,4 +135,3 @@ $(document).ready(function()
     }, 250);
  
 });
-
